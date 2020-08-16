@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "20407124352",
+    "firebase_url": "https://login-485bb.firebaseio.com",
+    "project_id": "login-485bb",
+    "storage_bucket": "login-485bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20407124352:android:bd6ff0f6a63c9583520165",
+        "android_client_info": {
+          "package_name": "com.example.chatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20407124352-l3ie5a9cf279dlmr4fr7lb978d5tk7bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqvPAqWu-MI8byZQTZ6FY3G9ntKXAYftQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20407124352-l3ie5a9cf279dlmr4fr7lb978d5tk7bf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
