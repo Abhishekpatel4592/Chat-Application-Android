@@ -1,34 +1,72 @@
 package com.example.chatapplication;
 
-import android.util.Log;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class User {
 
-    String uFirstName,uLastName;
-    DatabaseReference mDatabase;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String email;
+    private String country;
+    private String city;
+    private String state;
 
     User(){
 
     }
 
-    User(String mFirstName, String mLastName){
-        this.uFirstName = mFirstName;
-        this.uLastName = mLastName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setValue(){
-
-        Log.e("USER FIRSTNAME",uFirstName);
-        Log.e("USER LASTNAME",uLastName);
-
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        User user = new User(uFirstName,uLastName);
-//
-//        mDatabase.child("users").setValue(user);
-
+    public void setFirstName(String mFirstName) {
+        this.firstName = mFirstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String mLastName) {
+        this.lastName = mLastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String mPhone) {
+        this.phone = mPhone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String mEmail) {
+        this.email = mEmail;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String mCountry) {
+        this.country = mCountry;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String mCity) {
+        this.city = mCity;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String mState) {
+        this.state = mState;
+    }
 }

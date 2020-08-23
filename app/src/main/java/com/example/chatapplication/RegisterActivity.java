@@ -16,29 +16,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText mFirstName, mLastName, mPhone, mEmail, mPassword, mCity, mState, mCountry;
     Button mRegister;
     TextView mLoginText;
-    FirebaseAuth mAuth;
-    User mUser;
-    private DatabaseReference mDatabase;
-
+    FirebaseAuth fAuth;
+    private DatabaseReference fDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-
         mFirstName = (EditText) findViewById(R.id.firstNameEditText);
         mLastName = (EditText) findViewById(R.id.lastNameEditText);
         mPhone = (EditText) findViewById(R.id.phoneEditText);
@@ -49,8 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
         mCountry = (EditText) findViewById(R.id.countryEditText);
         mRegister = (Button) findViewById(R.id.registerButton);
         mLoginText = (TextView) findViewById(R.id.loginTextView);
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        fAuth = FirebaseAuth.getInstance();
+        fDatabase = FirebaseDatabase.getInstance().getReference();
 
         mLoginText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = mEmail.getText().toString().trim();
+                String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
                 final String fname = mFirstName.getText().toString();
@@ -75,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
                 final String cityname = mCity.getText().toString();
                 final String statename = mState.getText().toString();
                 final String countryname = mCountry.getText().toString();
-
 
                 if(TextUtils.isEmpty(fname)){
                     mFirstName.setError("First Name Required");
@@ -109,30 +100,33 @@ public class RegisterActivity extends AppCompatActivity {
                     mEmail.setError("Email Field Required");
                     return;
                 }
+
                 if(TextUtils.isEmpty(password)){
                     mPassword.setError("Password is Empty");
                     return;
                 }
+
                 if(password.length() >= 8){
                     mPassword.setError("Password should be less then 8 Charecter");
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                final User user = new User();
+                user.setFirstName(fname);
+                user.setLastName(lname);
+                user.setCity(cityname);
+                user.setCountry(countryname);
+                user.setState(statename);
+                user.setEmail(email);
+                user.setPhone(phone);
+
+                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
                             Log.e("SUCCESSFULL","USER ADDED");
-                            Map<String,Object> user = new HashMap<String, Object>();
-                            user.put("First Name",fname);
-                            user.put("Last Name",lname);
-                            user.put("Cell Phone",phone);
-                            user.put("Email",email);
-                            user.put("City",cityname);
-                            user.put("State",statename);
-                            user.put("Country",countryname);
-                            mDatabase.child("Users").push().setValue(user);
+                            fDatabase.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intent);
                         }
@@ -148,16 +142,12 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(mAuth.getCurrentUser() != null){
+        if(fAuth.getCurrentUser() != null){
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
 
-    public void setValue(User user){
-        mUser = user;
-
-    }
 
 }

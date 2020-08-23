@@ -807,6 +807,7 @@ id disableHome
 id edit_query
 id emailEditText
 id emailRegisterEditText
+id emailTextView
 id end
 id expand_activities_button
 id expanded_menu
@@ -853,6 +854,7 @@ id passwordEditText
 id passwordRegisterEditText
 id percent
 id phoneEditText
+id phoneTextView
 id progress_circular
 id progress_horizontal
 id radio
@@ -919,6 +921,7 @@ id wide
 id withText
 id wrap
 id wrap_content
+id yourNameTextView
 integer abc_config_activityDefaultDur
 integer abc_config_activityShortDur
 integer cancel_button_image_alpha
